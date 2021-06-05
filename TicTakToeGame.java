@@ -1,4 +1,5 @@
 package Com;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class TicTakToeGame
@@ -7,20 +8,43 @@ public class TicTakToeGame
 		{
 			System.out.println("Welcome to Tic Tac Toe Game");
 			char[] board = createBoard();
-			char UserLetter = chooseLetter1();
+			char UserLetter = chooseLetter();
 			char ComputerLetter ;
-			if(UserLetter == 'X') 
+			if(UserLetter == 'X')
 			{
-				ComputerLetter = '0'; // if user entered value x computerletter will be 0
+				ComputerLetter = '0';
 			}
 			else
 			{
-				ComputerLetter = 'X'; // if user entered value 0 computerletter will be x
+				ComputerLetter = 'X';
 			}
-			System.out.println("Computer Letter is: " + ComputerLetter + " User Letter is:" + UserLetter); // printing statement 
+			System.out.println("Computer Letter is: " + ComputerLetter + " User Letter is :" + UserLetter);
+			showBoard(board);
+			int userMove = getUserMove(board);
 			showBoard(board);
 		}
-		public static char chooseLetter1()
+		// selecting the valid cell and check if board is free
+		public static int getUserMove(char[] board)
+		{
+			Scanner scan = new Scanner(System.in);
+			Integer[] validCells = {1,2,3,4,5,6,7,8,9};
+			while (true)
+			{
+				System.out.println("Next move ? (1-9)");
+				int index = scan.nextInt();
+				if (Arrays.asList(validCells).contains(index) && isSpaceFree(board, index))
+				{
+				System.out.println("Entered cell is valid cell and space is free");
+				return index;
+			}
+					System.out.println("Enter valid cell is between 1-9");
+				}
+		}
+		public static boolean isSpaceFree(char[] board , int index)
+		{
+			return board[index] == ' ';
+		}
+		public static char chooseLetter()
 		{
 			char alphabet;
 			Scanner UserInput = new Scanner(System.in);
@@ -29,6 +53,7 @@ public class TicTakToeGame
 			return alphabet;
 			
 		}
+		// displaying the current board
 		public static void showBoard(char[] board)
 		{
 			System.out.println("\n" + board [1] + "|" + board[2] + " | " + board[3]);
@@ -39,25 +64,13 @@ public class TicTakToeGame
 			System.out.println("--------");
 			
 		}
-		// created method to allow player to give input
-		public static char chooseLetter()
-		{
-			char alphabet;
-			Scanner UserInput = new Scanner(System.in); 
-			// taking input
-			System.out.println("Enter the Alphabet");//Seeking input from user
-			alphabet=UserInput.next().toUpperCase().charAt(0);
-			return alphabet;
-			
-		}
 		public static char[] createBoard()
 		{
-			// created matrix board
-			char[] board = new char[10]; 
-		    for(int index =0; index < board.length; index++)
+			char[] board = new char[10];
+			for(int index =0; index < board.length; index++)
 			{
 				board[index] = ' ';
 			}
-			return board; // return board
+			return board;
 		}
 	}
