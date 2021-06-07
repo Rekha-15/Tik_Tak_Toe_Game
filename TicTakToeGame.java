@@ -10,7 +10,7 @@ public class TicTakToeGame
 			char[] board = createBoard();
 			char UserLetter = chooseLetter();
 			char ComputerLetter ;
-			if(UserLetter == 'X')
+			if(UserLetter == 'X')//allowing user to choose a letter 
 			{
 				ComputerLetter = '0';
 			}
@@ -44,6 +44,7 @@ public class TicTakToeGame
 		{
 			return board[index] == ' ';
 		}
+		//asking user to choose letter
 		public static char chooseLetter()
 		{
 			char alphabet;
@@ -64,6 +65,7 @@ public class TicTakToeGame
 			System.out.println("--------");
 			
 		}
+		//creating board
 		public static char[] createBoard()
 		{
 			char[] board = new char[10];
@@ -73,4 +75,64 @@ public class TicTakToeGame
 			}
 			return board;
 		}
+		
+		public static char winnerCheck(char[] board)
+		{
+			for( int i = 1; i < 3; i++ )  
+		    {
+				for(int j = 1;j <= i; j = j+3)
+				{
+					if( ( board[j] == 'X') && ( board[i+j] == 'X') && ( board[i+j+1] == 'X' ) )
+					{
+						return 'X';
+					}
+					if( ( board[j] == 'O' ) && ( board[i+j] == 'O' ) && ( board[i+j+1] == 'O' ) )
+					{
+						return 'O';
+					}
+				}
+		    }
+		    for( int i = 1; i < 3; i++ ) 
+		    {
+		    	for(int j = 1;j <= i; j++)
+		    	{
+		    		if( ( board[j] == 'X' ) && ( board[j+i+2] == 'X' ) && ( board[j+i+5] == 'X' ) )
+		    		{
+		    			return 'X';
+		    		}
+		        
+		    		if( ( board[j] == 'O' ) && ( board[j+i+2] == 'O' ) && ( board[j+i+5] == 'O' ) )
+		    		{
+		    			return 'O';
+		    		}
+		    	}
+		    }
+		    
+		    // For Diagonal
+		    
+		    if( ( board[1] == 'X' ) &&  ( board[5] == 'X' ) &&  ( board[9] == 'X' ) )
+		        return 'X';
+		    if( ( board[3] == 'X' ) &&  ( board[5] == 'X' ) &&  ( board[7] == 'X' ) )
+		    	return 'X';
+		    if( ( board[1] == 'O' ) &&  ( board[5] == 'O' ) &&  ( board[9] == 'O' ) )
+		    	return 'O';
+		    if( ( board[3] == 'O' ) &&  ( board[5] == 'O' ) &&  ( board[7] == 'O' ) )
+		    	return 'O';
+		    
+		    for( int i = 1; i < board.length; i++ )
+		    {
+		    	int  cell=0;
+		    	if(board[i]!=' ')
+		    	{
+		    		cell++;
+		    	}
+		    	if(cell==9)
+		    	{
+		    	System.out.println("Match is tie");
+		    	}
+		    }
+			return 0;
+		}
 	}
+
+
